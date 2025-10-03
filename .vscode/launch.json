@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "com.mycompany.actividad01.Main",
+            "projectName": "Actividad01"
+        },
+        {
+            "type": "cmake",
+            "request": "launch",
+            "name": "CMake: Depuración de scripts",
+            "cmakeDebugType": "script",
+            "scriptPath": "${workspaceFolder}/<...>.cmake"
+        }
+    ]
+}
