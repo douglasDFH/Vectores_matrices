@@ -238,6 +238,110 @@ public class NegocioArreglos { // definimos la clase NegocioArreglos
         return sb.toString();                                      // convertimos StringBuilder a String y lo retornamos
     }
 
+    public void ordenarVector() {                                  // metodo para ordenar el vector de menor a mayor
+        if (vector == null) return;                               // si el vector no existe, no hacemos nada
+        
+        // Implementamos algoritmo burbuja para ordenamiento
+        for (int i = 0; i < vector.length - 1; i++) {             // ciclo externo para las pasadas
+            for (int j = 0; j < vector.length - 1 - i; j++) {     // ciclo interno para comparaciones
+                if (vector[j] > vector[j + 1]) {                  // si el elemento actual es mayor que el siguiente
+                    // Intercambiamos los elementos
+                    int temporal = vector[j];                      // guardamos elemento actual en temporal
+                    vector[j] = vector[j + 1];                    // movemos elemento siguiente a posicion actual
+                    vector[j + 1] = temporal;                     // movemos elemento temporal a siguiente posicion
+                }
+            }
+        }
+    }
+
+    public void ordenarVectorAscendente() {                       // metodo para ordenar el vector de menor a mayor (ascendente)
+        if (vector == null) return;                               // si el vector no existe, no hacemos nada
+        
+        // Implementamos algoritmo burbuja para ordenamiento ascendente
+        for (int i = 0; i < vector.length - 1; i++) {             // ciclo externo para las pasadas
+            for (int j = 0; j < vector.length - 1 - i; j++) {     // ciclo interno para comparaciones
+                if (vector[j] > vector[j + 1]) {                  // si el elemento actual es mayor que el siguiente
+                    // Intercambiamos los elementos
+                    int temporal = vector[j];                      // guardamos elemento actual en temporal
+                    vector[j] = vector[j + 1];                    // movemos elemento siguiente a posicion actual
+                    vector[j + 1] = temporal;                     // movemos elemento temporal a siguiente posicion
+                }
+            }
+        }
+    }
+
+    public void ordenarVectorDescendente() {                      // metodo para ordenar el vector de mayor a menor (descendente)
+        if (vector == null) return;                               // si el vector no existe, no hacemos nada
+        
+        // Implementamos algoritmo burbuja para ordenamiento descendente
+        for (int i = 0; i < vector.length - 1; i++) {             // ciclo externo para las pasadas
+            for (int j = 0; j < vector.length - 1 - i; j++) {     // ciclo interno para comparaciones
+                if (vector[j] < vector[j + 1]) {                  // si el elemento actual es menor que el siguiente (cambiamos la condicion)
+                    // Intercambiamos los elementos
+                    int temporal = vector[j];                      // guardamos elemento actual en temporal
+                    vector[j] = vector[j + 1];                    // movemos elemento siguiente a posicion actual
+                    vector[j + 1] = temporal;                     // movemos elemento temporal a siguiente posicion
+                }
+            }
+        }
+    }
+
+    public void ordenarVectorPorFrecuencia() {                    // metodo para ordenar el vector por frecuencia de elementos
+        if (vector == null || vector.length <= 1) return;        // si no hay vector o tiene 1 elemento o menos, no hacemos nada
+        
+        // Creamos arrays para almacenar valores unicos y sus frecuencias
+        int[] valoresUnicos = new int[vector.length];             // array para valores unicos
+        int[] frecuencias = new int[vector.length];               // array para contar frecuencias
+        int cantidadUnicos = 0;                                   // contador de valores unicos
+        
+        // Contamos la frecuencia de cada elemento
+        for (int i = 0; i < vector.length; i++) {                // recorremos todo el vector
+            boolean encontrado = false;                           // bandera para verificar si el valor ya fue contado
+            
+            // Buscamos si el valor ya existe en nuestro array de unicos
+            for (int j = 0; j < cantidadUnicos; j++) {           // recorremos valores unicos ya procesados
+                if (valoresUnicos[j] == vector[i]) {              // si encontramos el valor
+                    frecuencias[j]++;                             // incrementamos su frecuencia
+                    encontrado = true;                            // marcamos que lo encontramos
+                    break;                                        // salimos del ciclo interno
+                }
+            }
+            
+            // Si no encontramos el valor, lo agregamos como nuevo valor unico
+            if (!encontrado) {                                    // si es un valor nuevo
+                valoresUnicos[cantidadUnicos] = vector[i];        // guardamos el valor
+                frecuencias[cantidadUnicos] = 1;                  // iniciamos su frecuencia en 1
+                cantidadUnicos++;                                 // incrementamos contador de unicos
+            }
+        }
+        
+        // Ordenamos los valores unicos por frecuencia (de mayor a menor frecuencia)
+        for (int i = 0; i < cantidadUnicos - 1; i++) {          // ciclo externo para ordenar por frecuencia
+            for (int j = 0; j < cantidadUnicos - 1 - i; j++) {   // ciclo interno para comparaciones
+                if (frecuencias[j] < frecuencias[j + 1]) {        // si la frecuencia actual es menor que la siguiente
+                    // Intercambiamos frecuencias
+                    int tempFrecuencia = frecuencias[j];          // guardamos frecuencia temporal
+                    frecuencias[j] = frecuencias[j + 1];          // movemos siguiente frecuencia a posicion actual
+                    frecuencias[j + 1] = tempFrecuencia;          // movemos frecuencia temporal a siguiente posicion
+                    
+                    // Intercambiamos valores correspondientes
+                    int tempValor = valoresUnicos[j];             // guardamos valor temporal
+                    valoresUnicos[j] = valoresUnicos[j + 1];      // movemos siguiente valor a posicion actual
+                    valoresUnicos[j + 1] = tempValor;             // movemos valor temporal a siguiente posicion
+                }
+            }
+        }
+        
+        // Reconstruimos el vector original con el orden por frecuencia
+        int indiceVector = 0;                                     // indice para reconstruir el vector
+        for (int i = 0; i < cantidadUnicos; i++) {              // recorremos cada valor unico
+            for (int j = 0; j < frecuencias[i]; j++) {           // agregamos cada valor segun su frecuencia
+                vector[indiceVector] = valoresUnicos[i];          // colocamos el valor en el vector
+                indiceVector++;                                   // avanzamos al siguiente indice
+            }
+        }
+    }
+
     public String getMatrizComoTexto() {                           // metodo que convierte la matriz a formato de texto legible
         if (matriz == null) return "Matriz no creada";            // si la matriz no existe, retornamos mensaje
 
